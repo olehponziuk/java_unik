@@ -1,22 +1,48 @@
 ﻿package org.example;
 
-public abstract class Place implements Cloneable{
-    public String title;
-    public boolean hasHotels;
-    public boolean hasRestaurants;
-    public int ageLimit;
-    public String country;
-    public Place(String namePlace, boolean hasHotels, boolean hasRestaurants, int ageLimit, String country) {
-        this.title = namePlace;
-        this.hasHotels = hasHotels;
-        this.hasRestaurants = hasRestaurants;
+import java.util.Objects;
+
+public class Place{
+    private String name;
+    private int ageLimit;
+    private String country;
+    private String city;
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAgeLimit() {
+        return ageLimit;
+    }
+    private void setName(String name) {
+        this.name = name;
+    }
+    private void setAgeLimit(int ageLimit) {
         this.ageLimit = ageLimit;
+    }
+    public String getCountry() {
+        return country;
+    }
+    private void setCountry(String country) {
         this.country = country;
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    private void setCity(String city)
+    {
+        this.city = city;
+    }
+    public String getCity(){
+        return city;
+    }
+    //public boolean hasHotels;
+    //public boolean hasRestaurants;
+
+    public Place(String namePlace, int ageLimit, String country, String city) {
+        this.name = namePlace;
+        this.ageLimit = ageLimit;
+        this.country = country;
+        this.city = city;
     }
 
     @Override
@@ -28,11 +54,22 @@ public abstract class Place implements Cloneable{
             return false;
         }
         Place place = (Place) obj;
-        return hasHotels == place.hasHotels &&
-                hasRestaurants == place.hasRestaurants &&
+        return city.equals(place.city) &&
                 ageLimit == place.ageLimit &&
-                title.equals(place.title) &&
+                name.equals(place.name) &&
                 country.equals(place.country);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return 52 + Objects.hash(name,ageLimit,country,city);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "name: " + name + ", ageLimit: " + ageLimit + ", country: " + country + ", city: " + city;
     }
 
 
