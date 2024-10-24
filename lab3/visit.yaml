@@ -1,0 +1,24 @@
+---
+- group:
+  - firstName: "Ivan"
+    lastName: "Bubna"
+    birthDate: "2007-08-10"
+    email: null
+    vipPass: true
+  - firstName: "Kate"
+    lastName: "Petrenko"
+    birthDate: "2003-08-24"
+    email: null
+    vipPass: false
+  price: 100.5
+  transport: "Bus"
+  place:
+    name: "DisneyLand"
+    ageLimit: 5
+    country: "Japane"
+    city: "Tokyo"
+  startDate: "2024-10-17"
+  lastDate:
+  - 2024
+  - 10
+  - 20
