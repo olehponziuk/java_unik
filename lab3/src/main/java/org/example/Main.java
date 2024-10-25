@@ -101,7 +101,7 @@ import java.util.List;
     }
 
 }
-*/
+
 public class Main {
     public static void main(String[] args) {
         AmusementPark disneyLand = new AmusementPark("DisneyLand", 5, "Japane", "Tokyo");
@@ -139,7 +139,7 @@ public class Main {
             ArrayList<Visit> visits = new ArrayList<>();
             visits.add(visit);
             String serializedData = serializer.serialize(visits);
-            System.out.println("Serialized Data (" + fileName + "):\n" /*+ serializedData*/ + "\n\n");
+            System.out.println("Serialized Data (" + fileName + "):\n"  + "\n\n");
 
             serializer.writeToFile(visits, fileName);
             System.out.println("Data written to file: " + fileName);
@@ -151,5 +151,36 @@ public class Main {
             System.err.println("Error during serialization: " + e.getMessage());
         }
 
+    }
+}
+*/
+
+public class Main {
+    public static void main(String[] args) {
+        AmusementPark disneyLand = new AmusementPark("DisneyLand", 5, "Japane", "Tokyo");
+
+        disneyLand.addAttraction("Space Mountain", 50.0);
+        disneyLand.addAttraction("Pirates of the Caribbean", 45.0);
+        Client client1 = new Client("Ivan", "Bubna", LocalDate.of(2007, 8, 10), true);
+        Client client2 = new Client("Kate", "Petrenko", LocalDate.of(2003, 8, 24), false);
+        ArrayList<Client> group = new ArrayList<>();
+        group.add(client1);
+        group.add(client2);
+
+        // Використовуємо VisitBuilder для створення візиту
+        try {
+            Visit visit = new Visit.VisitBuilder()
+                    .setGroup(group)
+                    .addPrice(100.5) // Додайте валідацію для ціни
+                    .addTransport("Bus")
+                    .addPlace(disneyLand)
+                    .addFirstDate(LocalDate.of(2024, 10, 17))
+                    .addLastDate(LocalDate.of(2024, 10, 20))
+                    .build();
+
+            System.out.println("Visit created successfully: " + visit);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Validation errors: " + e.getMessage());
+        }
     }
 }

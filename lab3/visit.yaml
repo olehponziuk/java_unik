@@ -18,7 +18,4 @@
     country: "Japane"
     city: "Tokyo"
   startDate: "2024-10-17"
-  lastDate:
-  - 2024
-  - 10
-  - 20
+  lastDate: "2024-10-20"

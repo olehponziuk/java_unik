@@ -1,11 +1,19 @@
 package org.example;
 
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Objects;
 
 public class Place {
+    @NotNull(message = "Name cannot be null")
     private String name;
+    @Min(value = 3, message = "Age limit > 3")
     private int ageLimit;
+    @NotNull(message = "Name cannot be null")
     private String country;
+    @NotNull(message = "Name cannot be null")
     private String city;
 
     public String getName() {

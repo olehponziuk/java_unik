@@ -1,21 +1,5 @@
 <ArrayList>
   <item>
-    <group>
-      <group>
-        <firstName>Ivan</firstName>
-        <lastName>Bubna</lastName>
-        <birthDate>2007-08-10</birthDate>
-        <email/>
-        <vipPass>true</vipPass>
-      </group>
-      <group>
-        <firstName>Kate</firstName>
-        <lastName>Petrenko</lastName>
-        <birthDate>2003-08-24</birthDate>
-        <email/>
-        <vipPass>false</vipPass>
-      </group>
-    </group>
     <price>100.5</price>
     <transport>Bus</transport>
     <place>
@@ -25,8 +9,22 @@
       <city>Tokyo</city>
     </place>
     <startDate>2024-10-17</startDate>
-    <lastDate>2024</lastDate>
-    <lastDate>10</lastDate>
-    <lastDate>20</lastDate>
+    <lastDate>2024-10-20</lastDate>
+    <group>
+      <client>
+        <firstName>Ivan</firstName>
+        <lastName>Bubna</lastName>
+        <birthDate>2007-08-10</birthDate>
+        <email/>
+        <vipPass>true</vipPass>
+      </client>
+      <client>
+        <firstName>Kate</firstName>
+        <lastName>Petrenko</lastName>
+        <birthDate>2003-08-24</birthDate>
+        <email/>
+        <vipPass>false</vipPass>
+      </client>
+    </group>
   </item>
 </ArrayList>

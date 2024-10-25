@@ -4,22 +4,34 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import jakarta.validation.*;
+import jakarta.validation.constraints.*;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Visit implements Comparable<Visit> {
+
+    @JacksonXmlElementWrapper(localName = "group")
+    @JacksonXmlProperty(localName = "client")
     private List<Client> group;
     private double price;
     private String transport;
     private Place place;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startDate;
     @JsonProperty("lastDate")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
-    public Visit() {}
+    public Visit() {
+        this.group = new ArrayList<>();
+    }
 
     public List<Client> getGroup() {
         return group;
@@ -120,13 +132,25 @@ public class Visit implements Comparable<Visit> {
     public static class VisitBuilder {
         @JacksonXmlElementWrapper(localName = "group")
         @JacksonXmlProperty(localName = "client")
+        @Valid
         private List<Client> group;
+        @NotNull(message = "Name cannot be null")
+        @Min(value = 40, message = "The price of the trip contradicts the company's policy")
+        @Max(value = 1_999_999, message = "The price of the trip contradicts the company's policy")
         private double price;
+
+        @NotNull(message = "Name cannot be null")
         private String transport;
+        @NotNull(message = "Name cannot be null")
         private Place place;
+        @JsonProperty("firstDate")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+        @FutureOrPresent()
         private LocalDate firstDate;
+
+        @JsonProperty("lastDate")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+        @FutureOrPresent()
         private LocalDate lastDate;
 
         public VisitBuilder setGroup(ArrayList<Client> group) {
@@ -160,6 +184,18 @@ public class Visit implements Comparable<Visit> {
         }
 
         public Visit build() {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<VisitBuilder>> violations = validator.validate(this);
+            if (!violations.isEmpty()) {
+                StringBuilder errorMessage = new StringBuilder("Validation errors:");
+                for (ConstraintViolation<VisitBuilder> violation : violations) {
+                    errorMessage.append("\n").append(violation.getMessage());
+                }
+                throw new IllegalArgumentException(errorMessage.toString());
+            }
+
             return new Visit(this);
         }
 

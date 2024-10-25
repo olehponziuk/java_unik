@@ -1,11 +1,13 @@
 package org.example;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
 
 public class Client {
     @JsonProperty("firstName")
+    @Length(min = 2, max = 45, message = "Name must be biggest")
     private String firstName;
 
     @JsonProperty("lastName")
