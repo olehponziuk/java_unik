@@ -20,6 +20,7 @@ dependencies {
     //implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
     implementation "org.glassfish.expressly:expressly:5.0.0"
+    implementation("org.postgresql:postgresql:42.7.4")
 }
 
 test {

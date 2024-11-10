@@ -1,8 +1,7 @@
 package org.example.Services;
 
-import org.example.AmusementPark;
+import org.example.Models.AmusementPark;
 
-import java.nio.file.AccessMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

@@ -1,9 +1,8 @@
 package org.example.Services;
 
 import org.example.Comparators.PlaceComparator;
-import org.example.Place;
+import org.example.Models.Place;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

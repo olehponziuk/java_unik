@@ -1,14 +1,11 @@
 package org.example;
 
-import org.example.Interfaces.ISerializable;
-import org.example.Serializers.JSONSerializer;
-import org.example.Serializers.XMLSerializer;
-import org.example.Serializers.YAMLSerializer;
+import org.example.Models.AmusementPark;
+import org.example.Models.Client;
+import org.example.Models.Visit;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 /*public class Main {
     public static void main(String[] args) {
@@ -155,14 +152,14 @@ public class Main {
 }
 */
 
-public class Main {
+/*public class Main {
     public static void main(String[] args) {
         AmusementPark disneyLand = new AmusementPark("DisneyLand", 5, "Japane", "Tokyo");
 
         disneyLand.addAttraction("Space Mountain", 50.0);
         disneyLand.addAttraction("Pirates of the Caribbean", 45.0);
-        Client client1 = new Client("Ivan", "Bubna", LocalDate.of(2007, 8, 10), true);
-        Client client2 = new Client("Kate", "Petrenko", LocalDate.of(2003, 8, 24), false);
+        Client client1 = new Client(1,"Ivan", "Bubna", LocalDate.of(2007, 8, 10), true);
+        Client client2 = new Client(2,"Kate", "Petrenko", LocalDate.of(2003, 8, 24), false);
         ArrayList<Client> group = new ArrayList<>();
         group.add(client1);
         group.add(client2);
@@ -181,6 +178,58 @@ public class Main {
             System.out.println("Visit created successfully: " + visit);
         } catch (IllegalArgumentException e) {
             System.err.println("Validation errors: " + e.getMessage());
+        }
+    }
+}*/
+
+import org.example.DAO.ClientDAO;
+import org.example.Models.Client;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+public class Main {
+    public static void main(String[] args) {
+        ClientDAO clientDAO = new ClientDAO();
+
+        try {
+            Client newClient = new Client(1,"Ivan", "Bubna", LocalDate.of(2007, 8, 10), true);
+            boolean isCreated = clientDAO.create(newClient);
+            System.out.println("Client created: " + isCreated + ", ID: " + newClient.getId());
+
+            List<Client> clients = clientDAO.getAll();
+            System.out.println("All clients:");
+            for (Client client : clients) {
+                System.out.println(client);
+            }
+
+            Optional<Client> clientById = clientDAO.getById(newClient.getId());
+
+
+            newClient.setFirstName("Kataq");
+            newClient.setLastName("You");
+            boolean isUpdated = clientDAO.update(newClient);
+            System.out.println("Client updated: " + isUpdated);
+
+            clientById = clientDAO.getById(newClient.getId());
+            if (clientById.isPresent()) {
+                System.out.println("Updated client: " + clientById.get());
+            }
+
+            boolean isDeleted = clientDAO.delete(newClient);
+            System.out.println("Client deleted: " + isDeleted);
+
+            clientById = clientDAO.getById(newClient.getId());
+            if (clientById.isEmpty()) {
+                System.out.println("Client successfully deleted.");
+            } else {
+                System.out.println("Client still exists after deletion: " + clientById.get());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

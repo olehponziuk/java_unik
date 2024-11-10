@@ -1,6 +1,6 @@
 package org.example.Comparators;
 
-import org.example.Place;
+import org.example.Models.Place;
 
 import java.util.Comparator;
 
